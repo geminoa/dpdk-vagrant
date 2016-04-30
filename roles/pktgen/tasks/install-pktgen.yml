@@ -1,0 +1,20 @@
+---
+- name: get dpdk
+  git: repo=http://dpdk.org/git/dpdk
+       dest=dpdk
+
+- name: make dpdk
+  command: make config T=x86_64-native-linuxapp-gcc chdir=dpdk
+
+- name: install dpdk
+  command: make install T=x86_64-native-linuxapp-gcc chdir=dpdk
+
+- name: get pktgen
+  vars:
+    pktgen_ver: 2.9.7
+  command: wget http://dpdk.org/browse/apps/pktgen-dpdk/snapshot/pktgen-{{ pktgen_ver }}.tar.gz
+
+- name: get pktgen
+  vars:
+    pktgen_ver: 2.9.7
+  command: tar zxvf pktgen-{{ pktgen_ver }}.tar.gz

@@ -1,41 +1,53 @@
 ---
-- hosts: pktgen 
+- name: set hugepages size
+  become: yes
+  command: sh -c "echo 1024 > /sys/kernel/mm/hugepages/hugepages-2048kB/nr_hugepages"
+
+- name: mkdir -p /mnt/huge
+  become: yes
+  command: mkdir -p /mnt/huge
+
+- name: chmod 777 /mnt/huge
+  become: yes
+  command: chmod 777 /mnt/huge
+
+- name: mount -t hugetlbfs nodev /mnt/huge
+  become: yes
+  command: mount -t hugetlbfs nodev /mnt/huge
+
+- name: set hugepages size
+  become: yes
+  command: modprobe uio_pci_generic
+
+- name: modprobe vfio-pci
+  become: yes
+  command: modprobe vfio-pci
+
+- name: ifconfig eth2 down
+  become: yes
+  command: ifconfig eth2 down
+
+- name: ifconfig eth3 down
+  become: yes
+  command: ifconfig eth3 down
+
+- name: ifconfig eth4 down
+  become: yes
+  command: ifconfig eth4 down
+
+- name: vm.nr_hugepages=256
+  become: yes
+  command: sh -c "echo vm.nr_hugepages=256 > /etc/sysctl.conf"
+
+- name: install libpcap-dev
+  become: yes
+  apt: pkg=libpcap-dev state=present
+
+- name: install build-essential
+  become: yes
+  apt: pkg=build-essential update_cache=no state=latest
+
+- name: install linux-headers
   vars:
-    uname_r: 3.19.0-25-generic
-  sudo: true
-  user: vagrant
-  tasks:
-    - command: sh -c "echo 1024 > /sys/kernel/mm/hugepages/hugepages-2048kB/nr_hugepages"
-    - command: mkdir -p /mnt/huge
-    - command: chmod 777 /mnt/huge
-    - command: mount -t hugetlbfs nodev /mnt/huge
-
-    - command: modprobe uio_pci_generic
-    - command: modprobe vfio-pci
-
-    - command: ifconfig eth2 down
-    - command: ifconfig eth3 down
-    - command: ifconfig eth4 down
-
-    - command: sh -c "echo vm.nr_hugepages=256 > /etc/sysctl.conf"
-
-    - apt: pkg=libpcap-dev update_cache=yes state=latest
-
-    # Install packages for DPDK
-    - apt: pkg=build-essential update_cache=no state=latest
-    - apt: pkg=linux-headers-{{ uname_r }} update_cache=no state=latest
-
-- hosts: pktgen 
-  user: vagrant
-  vars:
-    pktgen_ver: 2.9.7
-  tasks:
-    # dpdk
-    - git: repo=http://dpdk.org/git/dpdk
-           dest=dpdk
-    - command: make config T=x86_64-native-linuxapp-gcc chdir=dpdk
-    - command: make install T=x86_64-native-linuxapp-gcc chdir=dpdk
-
-    # pktgen
-    - command: wget http://dpdk.org/browse/apps/pktgen-dpdk/snapshot/pktgen-{{ pktgen_ver }}.tar.gz
-    - command: tar zxvf pktgen-{{ pktgen_ver }}.tar.gz
+    uname_r: 4.2.0-35-generic
+  apt: pkg=linux-headers-{{ uname_r }} update_cache=no state=present
