@@ -1,0 +1,20 @@
+---
+# Deploys the whole application stack in this site.
+
+- name: apply all base packages
+  hosts: all
+  remote_user: vagrant
+  roles:
+    - common
+
+- name: install dpdk
+  hosts: dpdk1
+  remote_user: vagrant
+  roles:
+    - dpdk1
+
+- name: install pktgen
+  hosts: pktgen 
+  remote_user: vagrant
+  roles:
+    - pktgen

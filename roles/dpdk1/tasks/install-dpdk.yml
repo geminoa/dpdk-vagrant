@@ -1,0 +1,13 @@
+---
+- name: get dpdk
+  become: vagrant
+  git: repo=http://dpdk.org/git/dpdk
+       dest=dpdk
+
+- name: make dpdk
+  become: vagrant
+  command: make config T=x86_64-native-linuxapp-gcc chdir=dpdk
+
+- name: install dpdk
+  become: vagrant
+  command: make install T=x86_64-native-linuxapp-gcc chdir=dpdk

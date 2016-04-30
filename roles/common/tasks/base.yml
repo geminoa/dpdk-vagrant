@@ -1,0 +1,32 @@
+---
+- name: install git 
+  become: yes
+  apt: name=git state=present update_cache=yes
+
+- name: install vim
+  become: yes
+  apt: name=vim state=present
+
+- name: install emacs
+  become: yes
+  apt: name=emacs state=present
+
+- name: install ruby 
+  become: yes
+  apt: name=ruby state=present
+
+- name: install curl
+  become: yes
+  apt: name=curl state=present
+
+- name: install wget
+  become: yes
+  apt: name=wget state=present
+
+- name: install tmux
+  become: yes
+  apt: name=tmux state=present
+
+- name: put .tmux.conf
+  become: vagrant
+  template: src=templates/tmux.conf dest={{ ansible_env.HOME }}/.tmux.conf

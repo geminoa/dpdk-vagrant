@@ -1,9 +1,0 @@
----
-- hosts: all
-  user: vagrant
-  tasks:
-    - command: wget https://raw.githubusercontent.com/Shougo/neobundle.vim/master/bin/install.sh
-
-    - command: sh {{ ansible_env.HOME }}/install.sh
-
-    - copy: src=config/vimrc dest={{ ansible_env.HOME }}/.vimrc

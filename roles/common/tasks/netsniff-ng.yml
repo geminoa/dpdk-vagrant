@@ -1,0 +1,65 @@
+---
+- name: install pkg-config 
+  become: yes 
+  apt: name=pkg-config state=present
+
+- name: install flex
+  become: yes 
+  apt: name=flex state=present
+
+- name: install bison
+  become: yes 
+  apt: name=bison state=present
+
+- name: install libnacl-dev
+  become: yes 
+  apt: name=libnacl-dev state=present
+
+- name: install libnl-cli-3-dev
+  become: yes 
+  apt: name=libnl-cli-3-dev state=present
+
+- name: install libnetfilter-conntrack-dev
+  become: yes 
+  apt: name=libnetfilter-conntrack-dev state=present
+
+- name: install liburcu-dev
+  become: yes 
+  apt: name=liburcu-dev state=present
+
+- name: install libncurses5-dev
+  become: yes 
+  apt: name=libncurses5-dev state=present
+
+- name: install libgeoip-dev
+  become: yes 
+  apt: name=libgeoip-dev state=present
+
+- name: install libpcap-dev
+  become: yes 
+  apt: name=libpcap-dev state=present
+
+- name: install libcli-dev
+  become: yes 
+  apt: name=libcli-dev state=present
+
+- name: install libnet1-dev 
+  become: yes 
+  apt: name=libnet1-dev state=present
+
+- name: get netsniff
+  become: vagrant
+  git: repo=https://github.com/netsniff-ng/netsniff-ng.git
+       dest={{ ansible_env.HOME }}/tmp
+
+- name: get netsniff
+  become: vagrant
+  command: bash configure chdir={{ ansible_env.HOME }}/tmp
+
+- name: make netsniff
+  become: vagrant
+  command: make chdir={{ ansible_env.HOME }}/tmp
+
+- name: install netsniff
+  become: yes 
+  command: make install chdir={{ ansible_env.HOME }}/tmp
