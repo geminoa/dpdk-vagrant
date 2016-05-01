@@ -48,6 +48,7 @@
   apt: pkg=build-essential update_cache=no state=latest
 
 - name: install linux-headers
+  become: yes
   vars:
     uname_r: 4.2.0-35-generic
   apt: pkg=linux-headers-{{ uname_r }} update_cache=no state=present
