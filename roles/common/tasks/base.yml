@@ -33,3 +33,6 @@
 
 - name: put .tmux.conf
   template: src=templates/tmux.conf dest={{ ansible_env.HOME }}/.tmux.conf
+
+- name: put do_after_reboot.sh
+  template: src=templates/do_after_reboot.sh dest={{ ansible_env.HOME }}
