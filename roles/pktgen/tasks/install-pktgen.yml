@@ -39,4 +39,4 @@
   command: sh -c "patch < pktgen-pcap.patch" chdir={{ pktgen_dir }}/app
 
 - name: make pktgen
-  command: make chdir={{ pktgen_dir }}
+  command: make RTE_SDK={{ dpdk_dir }} chdir={{ pktgen_dir }}
