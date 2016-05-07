@@ -10,11 +10,23 @@
   command: make install T=x86_64-native-linuxapp-gcc chdir=dpdk
 
 - name: get pktgen
-  vars:
-    pktgen_ver: 2.9.7
-  command: wget http://dpdk.org/browse/apps/pktgen-dpdk/snapshot/pktgen-{{ pktgen_ver }}.tar.gz
+  git: repo=http://dpdk.org/git/apps/pktgen-dpdk
 
-- name: get pktgen
-  vars:
-    pktgen_ver: 2.9.7
-  command: tar zxvf pktgen-{{ pktgen_ver }}.tar.gz
+- name: make pktgen
+  command: make chdir=pktgen-dpdk
+
+- name: bind eth1 to dpdk uio_pci_generic driver
+  become: yes
+  command: python dpdk_nic_bind.py --bind=uio_pci_generic eth1 chdir=dpdk/tools
+
+- name: bind eth2 to dpdk uio_pci_generic driver
+  become: yes
+  command: python dpdk_nic_bind.py --bind=uio_pci_generic eth2 chdir=dpdk/tools
+
+- name: bind eth3 to dpdk uio_pci_generic driver
+  become: yes
+  command: python dpdk_nic_bind.py --bind=uio_pci_generic eth3 chdir=dpdk/tools
+
+- name: bind eth4 to dpdk uio_pci_generic driver
+  become: yes
+  command: python dpdk_nic_bind.py --bind=uio_pci_generic eth4 chdir=dpdk/tools

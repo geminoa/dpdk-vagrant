@@ -19,6 +19,10 @@
   become: yes
   command: modprobe vfio-pci
 
+- name: ifconfig eth1 down
+  become: yes
+  command: ifconfig eth1 down
+
 - name: ifconfig eth2 down
   become: yes
   command: ifconfig eth2 down
@@ -37,7 +41,7 @@
 
 - name: install linux-headers
   become: yes
-  command: sh -c "apt-get install linux-headers-`uname -r`"
-  #vars:
-  #  uname_r: 3.19.0-25-generic
-  #apt: pkg=linux-headers-{{ uname_r }} update_cache=no state=present
+  #command: sh -c "apt-get install linux-headers-`uname -r`"
+  vars:
+    uname_r: 4.2.0-35-generic
+  apt: pkg=linux-headers-{{ uname_r }} update_cache=no state=present

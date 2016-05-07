@@ -23,6 +23,10 @@
   become: yes
   command: modprobe vfio-pci
 
+- name: ifconfig eth1 down
+  become: yes
+  command: ifconfig eth1 down
+
 - name: ifconfig eth2 down
   become: yes
   command: ifconfig eth2 down
