@@ -49,14 +49,14 @@
 
 - name: get netsniff
   git: repo=https://github.com/netsniff-ng/netsniff-ng.git
-       dest={{ ansible_env.HOME }}/tmp
+       dest={{ netsniff_dir }}
 
 - name: get netsniff
-  command: bash configure chdir={{ ansible_env.HOME }}/tmp
+  command: bash configure chdir={{ netsniff_dir }}
 
 - name: make netsniff
-  command: make chdir={{ ansible_env.HOME }}/tmp
+  command: make chdir={{ netsniff_dir }}
 
 - name: install netsniff
   become: yes 
-  command: make install chdir={{ ansible_env.HOME }}/tmp
+  command: make install chdir={{ netsniff_dir }}

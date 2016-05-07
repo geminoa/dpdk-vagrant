@@ -1,7 +1,7 @@
 ---
 - name: set hugepages size
   become: yes
-  command: sh -c "echo 1024 > /sys/kernel/mm/hugepages/hugepages-2048kB/nr_hugepages"
+  command: sh -c "echo {{ nr_hugepages }} > /sys/kernel/mm/hugepages/hugepages-2048kB/nr_hugepages"
 
 - name: mkdir -p /mnt/huge and chmod 777 /mnt/huge
   become: yes
@@ -11,7 +11,7 @@
   become: yes
   command: mount -t hugetlbfs nodev /mnt/huge
 
-- name: set hugepages size
+- name: modprobe uio_pci_generic
   become: yes
   command: modprobe uio_pci_generic
 
@@ -35,7 +35,7 @@
   become: yes
   command: ifconfig eth5 down
 
-- name: vm.nr_hugepages=256
+- name: set vm.nr_hugepages=256
   become: yes
   command: sh -c "echo vm.nr_hugepages=256 > /etc/sysctl.conf"
 

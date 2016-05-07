@@ -4,6 +4,8 @@
 - name: apply all base packages
   hosts: all
   remote_user: vagrant
+  vars:
+    netsniff_dir: "{{ ansible_env.HOME }}/netsniff-ng"
   roles:
     - common
 
@@ -11,7 +13,9 @@
   hosts: dpdk1
   remote_user: vagrant
   vars:
+    nr_hugepages: 1024
     uname_r: 4.2.0-35-generic
+    dpdk_dir: "{{ ansible_env.HOME }}/dpdk"
   roles:
     - dpdk1
 
@@ -19,6 +23,9 @@
   hosts: pktgen 
   remote_user: vagrant
   vars:
+    nr_hugepages: 1024
     uname_r: 4.2.0-35-generic
+    dpdk_dir: "{{ ansible_env.HOME }}/dpdk"
+    pktgen_dir: "{{ ansible_env.HOME }}/pktgen-dpdk"
   roles:
     - pktgen
