@@ -48,16 +48,13 @@
   apt: name=libnet1-dev state=present
 
 - name: get netsniff
-  become: vagrant
   git: repo=https://github.com/netsniff-ng/netsniff-ng.git
        dest={{ ansible_env.HOME }}/tmp
 
 - name: get netsniff
-  become: vagrant
   command: bash configure chdir={{ ansible_env.HOME }}/tmp
 
 - name: make netsniff
-  become: vagrant
   command: make chdir={{ ansible_env.HOME }}/tmp
 
 - name: install netsniff

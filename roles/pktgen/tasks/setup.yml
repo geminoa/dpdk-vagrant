@@ -23,10 +23,6 @@
   become: yes
   command: modprobe vfio-pci
 
-- name: ifconfig eth1 down
-  become: yes
-  command: ifconfig eth1 down
-
 - name: ifconfig eth2 down
   become: yes
   command: ifconfig eth2 down
@@ -38,6 +34,10 @@
 - name: ifconfig eth4 down
   become: yes
   command: ifconfig eth4 down
+
+- name: ifconfig eth5 down
+  become: yes
+  command: ifconfig eth5 down
 
 - name: vm.nr_hugepages=256
   become: yes

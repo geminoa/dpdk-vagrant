@@ -5,11 +5,12 @@
 
 - name: mkdir /mnt/huge
   become: yes
-  command: mkdir -p /mnt/huge
+  file: path=/mnt/huge state=directory
 
 - name: mount hugetlbfs
   become: yes
   command: mount -t hugetlbfs nodev /mnt/huge
+  #mount: name=/mnt/huge fstype=hugetlbfs src=none
 
 - name: modprobe uio_pci_generic
   become: yes

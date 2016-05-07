@@ -1,12 +1,10 @@
 ---
 - name: get neobundle
-  become: vagrant
-  command: wget https://raw.githubusercontent.com/Shougo/neobundle.vim/master/bin/install.sh
+  get_url: url=https://raw.githubusercontent.com/Shougo/neobundle.vim/master/bin/install.sh 
+           dest={{ ansible_env.HOME }}
 
 - name: install neobundle
-  become: vagrant
   command: sh {{ ansible_env.HOME }}/install.sh
 
 - name: put .vimrc
-  become: vagrant
   template: src=templates/vimrc dest={{ ansible_env.HOME }}/.vimrc

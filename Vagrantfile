@@ -4,26 +4,69 @@
 # Vagrantfile API/syntax version. Don't touch unless you know what you're doing!
 VAGRANTFILE_API_VERSION = "2"
 
+CPU_NUM = 4
+MEM_SIZE = 2 * 1024
+PORT_NUM = 4  # for dpdk pmd.
+
 servers = [
 #  {
 #    "id" => "h2",
-#    "memory" => 4 * 1024,
-#    "cpu" => 4,
-#    "ipaddr" => ["192.168.33.12", "192.168.33.121", "192.168.33.122", "192.168.33.123"]
+#    "memory" => MEM_SIZE,
+#    "cpu" => CPU_NUM,
+#    "nic" => {
+#               "ipaddr" => "192.168.33.12",
+#               "port_num" => PORT_NUM,
+#               "port_ipaddrs" => []
+#             }
 #  },
   {
     "id" => "h3",
-    "memory" => 4 * 1024,
-    "cpu" => 4,
-    "ipaddr" => ["192.168.33.13", "192.168.33.131", "192.168.33.132", "192.168.33.133"]
+    "memory" => MEM_SIZE,
+    "cpu" => CPU_NUM,
+    "nic" => {
+      "ipaddr" => "192.168.33.13",
+      "port_num" => PORT_NUM,
+      "port_ipaddrs" => []
+    }
   },
   {
     "id" => "h1",
-    "memory" => 4 * 1024,
-    "cpu" => 4,
-    "ipaddr" => ["192.168.33.11", "192.168.33.111", "192.168.33.112", "192.168.33.113"]
+    "memory" => MEM_SIZE,
+    "cpu" => CPU_NUM,
+    "nic" => {
+      "ipaddr" => "192.168.33.11",
+      "port_num" => PORT_NUM,
+      "port_ipaddrs" => []
+    }
   }
 ]
+
+# Assign random IP address to ports.
+reserved_ipaddrs = []  # Used for checking conflict.
+servers.each do |s|
+  reserved_ipaddrs << s["nic"]["ipaddr"]
+end
+
+servers.each do |s|
+  s["nic"]["port_num"].times do
+    # Random IP is decided by using 1 ~ 3 bytes of server's IP.
+    tmp = s["nic"]["ipaddr"].split(".")
+    tmp.pop
+    base = tmp.join(".")
+  
+    flg = false
+    while flg == false
+      tmp = rand(253) + 2  # Generate 4th byte ranging from 2 to 254.
+      tmp = base + "." + tmp.to_s
+      if !(reserved_ipaddrs.include? tmp)
+        reserved_ipaddrs << tmp
+        s["nic"]["port_ipaddrs"] << tmp
+        flg = true
+      end
+    end
+  end
+end
+
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Every Vagrant virtual environment requires a box to build off of.
@@ -32,20 +75,14 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   servers.each do |server|
     config.vm.define server["id"].to_sym do |s|
-      server["ipaddr"].each do |ipaddr|
+      s.vm.network :private_network, ip: server["nic"]["ipaddr"]
+      server["nic"]["port_ipaddrs"].each do |ipaddr|
         s.vm.network :private_network, ip: ipaddr
       end  
     end
+
     config.vm.provider "virtualbox" do |vb|
      vb.customize ["modifyvm", :id, "--memory", server["memory"], "--cpus", server["cpu"]]
     end
   end
-
-  #config.ssh.insert_key = false
-  #config.vm.provision "ansible" do |ansible|
-  #  ansible.verbose = "v"
-  #  ansible.playbook = "playbook.yaml"
-  #  ansible.inventory_path = "hosts"
-  #  ansible.limit = "all"
-  #end
 end
