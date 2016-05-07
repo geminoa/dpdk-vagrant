@@ -3,13 +3,9 @@
   become: yes
   command: sh -c "echo 1024 > /sys/kernel/mm/hugepages/hugepages-2048kB/nr_hugepages"
 
-- name: mkdir -p /mnt/huge
+- name: mkdir -p /mnt/huge and chmod 777 /mnt/huge
   become: yes
-  command: mkdir -p /mnt/huge
-
-- name: chmod 777 /mnt/huge
-  become: yes
-  command: chmod 777 /mnt/huge
+  file: path=/mnt/huge state=directory mode=0777
 
 - name: mount -t hugetlbfs nodev /mnt/huge
   become: yes
@@ -53,6 +49,4 @@
 
 - name: install linux-headers
   become: yes
-  vars:
-    uname_r: 4.2.0-35-generic
   apt: pkg=linux-headers-{{ uname_r }} update_cache=no state=present

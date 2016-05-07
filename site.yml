@@ -10,11 +10,15 @@
 - name: install dpdk
   hosts: dpdk1
   remote_user: vagrant
+  vars:
+    uname_r: 4.2.0-35-generic
   roles:
     - dpdk1
 
 - name: install pktgen
   hosts: pktgen 
   remote_user: vagrant
+  vars:
+    uname_r: 4.2.0-35-generic
   roles:
     - pktgen

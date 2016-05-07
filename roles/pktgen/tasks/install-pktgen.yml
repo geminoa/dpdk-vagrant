@@ -11,13 +11,10 @@
 
 - name: get pktgen
   git: repo=http://dpdk.org/git/apps/pktgen-dpdk
+       dest=pktgen-dpdk
 
 - name: make pktgen
   command: make chdir=pktgen-dpdk
-
-- name: bind eth1 to dpdk uio_pci_generic driver
-  become: yes
-  command: python dpdk_nic_bind.py --bind=uio_pci_generic eth1 chdir=dpdk/tools
 
 - name: bind eth2 to dpdk uio_pci_generic driver
   become: yes
@@ -30,3 +27,7 @@
 - name: bind eth4 to dpdk uio_pci_generic driver
   become: yes
   command: python dpdk_nic_bind.py --bind=uio_pci_generic eth4 chdir=dpdk/tools
+
+- name: bind eth5 to dpdk uio_pci_generic driver
+  become: yes
+  command: python dpdk_nic_bind.py --bind=uio_pci_generic eth5 chdir=dpdk/tools

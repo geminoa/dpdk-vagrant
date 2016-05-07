@@ -1,29 +1,26 @@
 ---
 - name: get dpdk
-  become: vagrant
   git: repo=http://dpdk.org/git/dpdk
        dest=dpdk
 
 - name: make dpdk
-  become: vagrant
   command: make config T=x86_64-native-linuxapp-gcc chdir=dpdk
 
 - name: install dpdk
-  become: vagrant
   command: make install T=x86_64-native-linuxapp-gcc chdir=dpdk
-
-- name: bind eth1 to dpdk uio_pci_generic driver
-  become: yes
-  command: python dpdk_nic_bind.py --bind=uio_pci_generic eth1
 
 - name: bind eth2 to dpdk uio_pci_generic driver
   become: yes
-  command: python dpdk_nic_bind.py --bind=uio_pci_generic eth2
+  command: python dpdk_nic_bind.py --bind=uio_pci_generic eth2 chdir=dpdk/tools
+
+- name: bind eth2 to dpdk uio_pci_generic driver
+  become: yes
+  command: python dpdk_nic_bind.py --bind=uio_pci_generic eth3 chdir=dpdk/tools
 
 - name: bind eth3 to dpdk uio_pci_generic driver
   become: yes
-  command: python dpdk_nic_bind.py --bind=uio_pci_generic eth3
+  command: python dpdk_nic_bind.py --bind=uio_pci_generic eth4 chdir=dpdk/tools
 
 - name: bind eth4 to dpdk uio_pci_generic driver
   become: yes
-  command: python dpdk_nic_bind.py --bind=uio_pci_generic eth4
+  command: python dpdk_nic_bind.py --bind=uio_pci_generic eth5 chdir=dpdk/tools

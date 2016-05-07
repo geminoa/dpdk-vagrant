@@ -20,10 +20,6 @@
   become: yes
   command: modprobe vfio-pci
 
-- name: ifconfig eth1 down
-  become: yes
-  command: ifconfig eth1 down
-
 - name: ifconfig eth2 down
   become: yes
   command: ifconfig eth2 down
@@ -36,6 +32,11 @@
   become: yes
   command: ifconfig eth4 down
 
+- name: ifconfig eth5 down
+  become: yes
+  command: ifconfig eth5 down
+
+
 - name: install build-essential
   become: yes
   apt: pkg=build-essential update_cache=no state=present
@@ -43,6 +44,4 @@
 - name: install linux-headers
   become: yes
   #command: sh -c "apt-get install linux-headers-`uname -r`"
-  vars:
-    uname_r: 4.2.0-35-generic
   apt: pkg=linux-headers-{{ uname_r }} update_cache=no state=present
