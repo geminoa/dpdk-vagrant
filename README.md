@@ -40,12 +40,12 @@ Installed by running script.
 
 ### 2. How to use
 
-1. Create VMs. 2 VMs with 4 CPUs and 4096[MB] memory by default. You can change this setting by editing `Vagrantfile`.
+(1) Create VMs. 2 VMs with 4 CPUs and 4096[MB] memory by default. You can change this setting by editing `Vagrantfile`.
 ```
 $ vagrant up
 ```
 
-2. Run ansible-playbook.
+(2) Run ansible-playbook.
 ```
 $ ansible-playbook -i hosts site.yml
 ```
@@ -54,7 +54,7 @@ or use rake if you installed it.
 $ rake
 ```
 
-3. Run DPDK applications.
+(3) Run DPDK applications.
 Login h1 or h3, then compile and run applications as following.
 ```
 $ vagrant ssh h1
@@ -89,10 +89,9 @@ hello from core 1
 hello from core 2
 hello from core 3
 hello from core 0
-
 ```
 
-4. Run pktgen-dpdk.
+(4) Run pktgen-dpdk.
 Login h3 (if you don't change default configuration) and move to pktgen's directory.
 ```
 $ vagrant ssh h3
@@ -125,7 +124,6 @@ port_map="-m [0:1].0 -m [2:3].1"
 load_file="-f themes/white-black.theme"
 #black_list="-b 06:00.0 -b 06:00.1 -b 08:00.0 -b 08:00.1 -b 09:00.0 -b 09:00.1 -b 83:00.1"
 black_list=""
-
 ```
 
 ### 3. Configuration
