@@ -1,4 +1,4 @@
-task :all => [:main] do
+task :default => [:main] do
   puts "done." 
 end
 

@@ -4,8 +4,10 @@
 # Vagrantfile API/syntax version. Don't touch unless you know what you're doing!
 VAGRANTFILE_API_VERSION = "2"
 
+
+# ---------- Edit to change VM params -------------
 CPU_NUM = 4
-MEM_SIZE = 2 * 1024
+MEM_SIZE = 4 * 1024
 PORT_NUM = 4  # for dpdk pmd.
 
 servers = [
@@ -15,8 +17,7 @@ servers = [
 #    "cpu" => CPU_NUM,
 #    "nic" => {
 #               "ipaddr" => "192.168.33.12",
-#               "port_num" => PORT_NUM,
-#               "port_ipaddrs" => []
+#               "port_num" => PORT_NUM
 #             }
 #  },
   {
@@ -25,8 +26,7 @@ servers = [
     "cpu" => CPU_NUM,
     "nic" => {
       "ipaddr" => "192.168.33.13",
-      "port_num" => PORT_NUM,
-      "port_ipaddrs" => []
+      "port_num" => PORT_NUM
     }
   },
   {
@@ -35,16 +35,21 @@ servers = [
     "cpu" => CPU_NUM,
     "nic" => {
       "ipaddr" => "192.168.33.11",
-      "port_num" => PORT_NUM,
-      "port_ipaddrs" => []
+      "port_num" => PORT_NUM
     }
   }
 ]
+
+# -------------------------------------------------
+
 
 # Assign random IP address to ports.
 reserved_ipaddrs = []  # Used for checking conflict.
 servers.each do |s|
   reserved_ipaddrs << s["nic"]["ipaddr"]
+  
+ # Add an array to contain port's ipaddr.
+ s["nic"]["port_ipaddrs"] = []
 end
 
 servers.each do |s|
