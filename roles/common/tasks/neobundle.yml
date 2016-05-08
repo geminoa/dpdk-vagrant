@@ -7,4 +7,4 @@
   command: sh {{ ansible_env.HOME }}/install.sh
 
 - name: put .vimrc
-  template: src=templates/vimrc dest={{ ansible_env.HOME }}/.vimrc
+  copy: src=templates/vimrc dest={{ ansible_env.HOME }}/.vimrc mode=664

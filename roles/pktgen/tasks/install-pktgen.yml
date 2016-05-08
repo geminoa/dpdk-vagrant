@@ -30,10 +30,10 @@
        dest={{ pktgen_dir }}
 
 - name: put oritinal doit script
-  template: src=templates/doit dest={{ pktgen_dir }}
+  copy: src=templates/doit dest={{ pktgen_dir }} mode=775
 
 - name: put patch for pktgen-dpdk/app/pktgen-pcap.c
-  template: src=templates/pktgen-pcap.patch dest={{ pktgen_dir }}/app
+  copy: src=templates/pktgen-pcap.patch dest={{ pktgen_dir }}/app mode=664
 
 - name: patch for pktgen-dpdk/app/pktgen-pcap.c
   command: sh -c "patch < pktgen-pcap.patch" chdir={{ pktgen_dir }}/app

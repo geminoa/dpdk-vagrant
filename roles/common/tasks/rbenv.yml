@@ -1,22 +1,17 @@
 ---
 - name: get rbenv
-  become: vagrant
   git: repo=https://github.com/rbenv/rbenv.git
        dest={{ ansible_env.HOME }}/.rbenv
 
 - name: configure rbenv
-  become: vagrant
   command: src/configure chdir={{ ansible_env.HOME }}/.rbenv
 
 - name: make rbenv
-  become: vagrant
   command: make -C src chdir={{ ansible_env.HOME }}/.rbenv
 
 - name: copy bash_profile
-  become: vagrant
-  template: src=templates/bash_profile dest={{ ansible_env.HOME }}/.bash_profile
+  copy: src=templates/bash_profile dest={{ ansible_env.HOME }}/.bash_profile mode=664
 
 - name: get ruby-build
-  become: vagrant
   git: repo=https://github.com/rbenv/ruby-build.git
        dest={{ ansible_env.HOME }}/.rbenv/plugins/ruby-build
