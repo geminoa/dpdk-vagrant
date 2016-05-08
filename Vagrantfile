@@ -27,7 +27,8 @@ servers = [
     "nic" => {
       "ipaddr" => "192.168.33.13",
       "port_num" => PORT_NUM
-    }
+    },
+    "ssh_port" => 11122
   },
   {
     "id" => "h1",
@@ -36,7 +37,8 @@ servers = [
     "nic" => {
       "ipaddr" => "192.168.33.11",
       "port_num" => PORT_NUM
-    }
+    },
+    "ssh_port" => 11123
   }
 ]
 
@@ -78,11 +80,14 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.box = "bento/ubuntu-14.04"
   #config.vm.box = "bento/ubuntu-15.04"
 
+  #config.vm.network :forwarded_port, guest: 22, host: 11234
+
   servers.each do |server|
-    config.vm.define server["id"].to_sym do |s|
-      s.vm.network :private_network, ip: server["nic"]["ipaddr"]
+    config.vm.define server["id"].to_sym do |sid|
+      sid.vm.network :forwarded_port, guest: 22, host: server["ssh_port"] 
+      sid.vm.network :private_network, ip: server["nic"]["ipaddr"]
       server["nic"]["port_ipaddrs"].each do |ipaddr|
-        s.vm.network :private_network, ip: ipaddr
+        sid.vm.network :private_network, ip: ipaddr
       end  
     end
 
