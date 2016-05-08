@@ -108,7 +108,7 @@ Run pktgen located on $HOME/pktgen-dpdk/app/app/x86_64-native-linuxapp-gcc/pktge
 You can run it directory, but it better to use `doit` script.
 ```
 vagrant@vagrant:~/pktgen-dpdk$ chmod 775 doit
-vagrant@vagrant:~/pktgen-dpdk$ sudo -E doit
+vagrant@vagrant:~/pktgen-dpdk$ sudo -E ./doit
 ```
 
 if you change options for pktgen, edit `doit` script. Please refer to pktgen-dpdk's [README](http://dpdk.org/browse/apps/pktgen-dpdk/tree/README.md) for details.
