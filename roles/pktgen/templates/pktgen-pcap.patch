@@ -1,0 +1,32 @@
+--- pktgen-pcap.c	2016-05-05 16:09:07.000000000 +0900
++++ pktgen-pcap-mod.c	2016-05-07 15:24:42.000000000 +0900
+@@ -70,6 +70,29 @@
+ 
+ #include "pktgen.h"
+ 
++#ifdef RTE_LIBRTE_MBUF_DEBUG
++#define __rte_mbuf_sanity_check(m, is_h) rte_mbuf_sanity_check(m, is_h)
++
++#define __rte_mbuf_sanity_check_raw(m, is_h)    do {       \
++          if ((m) != NULL)                                   \
++                  rte_mbuf_sanity_check(m, is_h);          \
++} while (0)
++
++#define RTE_MBUF_ASSERT(exp)                                         \
++  if (!(exp)) {                                                        \
++            rte_panic("line%d\tassert \"" #exp "\" failed\n", __LINE__); \
++  }
++
++#else /*  RTE_LIBRTE_MBUF_DEBUG */
++
++#define __rte_mbuf_sanity_check(m, is_h) do { } while (0)
++
++#define __rte_mbuf_sanity_check_raw(m, is_h) do { } while (0)
++
++#define RTE_MBUF_ASSERT(exp)                do { } while (0)
++
++#endif /*  RTE_LIBRTE_MBUF_DEBUG */
++
+ /**************************************************************************//**
+  *
+  * pktgen_print_pcap - Display the pcap data page.
