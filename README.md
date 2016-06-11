@@ -55,7 +55,7 @@ $ rake
 ```
 
 (3) Run DPDK applications.
-Login h1 or h3, then compile and run applications as following.
+Login h1 (or h2), then compile and run applications as following.
 ```
 $ vagrant ssh h1
 Welcome to Ubuntu 14.04.4 LTS (GNU/Linux 4.2.0-35-generic x86_64)
@@ -92,9 +92,9 @@ hello from core 0
 ```
 
 (4) Run pktgen-dpdk.
-Login h3 (if you don't change default configuration) and move to pktgen's directory.
+Login h2 (if you don't change default configuration) and move to pktgen's directory.
 ```
-$ vagrant ssh h3
+$ vagrant ssh h2
 Welcome to Ubuntu 14.04.4 LTS (GNU/Linux 4.2.0-35-generic x86_64)
 
  * Documentation:  https://help.ubuntu.com/
@@ -143,20 +143,20 @@ PORT_NUM = 4  # for dpdk pmd.
 
 servers = [
 #  {
-#    "id" => "h2",
+#    "id" => "h3",
 #    "memory" => MEM_SIZE,
 #    "cpu" => CPU_NUM,
 #    "nic" => {
-#               "ipaddr" => "192.168.33.12",
+#               "ipaddr" => "192.168.33.13",
 #               "port_num" => PORT_NUM
 #             }
 #  },
   {
-    "id" => "h3",
+    "id" => "h2",
     "memory" => MEM_SIZE,
     "cpu" => CPU_NUM,
     "nic" => {
-      "ipaddr" => "192.168.33.13",
+      "ipaddr" => "192.168.33.12",
       "port_num" => PORT_NUM
     }
   },
