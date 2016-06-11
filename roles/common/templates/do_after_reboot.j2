@@ -10,13 +10,13 @@ sudo modprobe uio_pci_generic
 
 
 # hugepages
-mkdir /mnt/huge
-mount -t hugetlbfs nodev /mnt/huge
+sudo mkdir -p /mnt/huge
+sudo mount -t hugetlbfs nodev /mnt/huge
 
-echo {{ nr_hugepages }} > /sys/kernel/mm/hugepages/hugepages-2048kB/nr_hugepages
+sudo sh "echo {{ nr_hugepages }} > /sys/kernel/mm/hugepages/hugepages-2048kB/nr_hugepages"
 
 # If on a Numa
-#echo 1024 > /sys/devices/system/node/node0/hugepages/hugepages-2048kB/nr_hugepages
+#sudo sh "echo {{ nr_hugepages }} > /sys/devices/system/node/node0/hugepages/hugepages-2048kB/nr_hugepages"
 
 
 # setup vars for nic bind.
