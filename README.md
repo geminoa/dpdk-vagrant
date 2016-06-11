@@ -1,6 +1,6 @@
 ## DPDK and pktgen with Vagrant
 
-This program setup DPDK 16.04 and pktge-dpdk 3.0.00 on virtual machines of Ubuntu 14.04.
+This program setup DPDK 16.04 and pktge-dpdk 3.0.02 on virtual machines of Ubuntu 14.04.
 
 ### 1. Installation
 
@@ -33,10 +33,10 @@ Install ansible  >= 2.0 by following this [instruction](http://docs.ansible.com/
 I only tested version 2.0.1.0 but it might work.
 
 ##### DPDK 16.04
-Installed by running script.
+Install by running this tool.
 
-##### pktgen-dpdk 3.0.00
-Installed by running script.
+##### pktgen-dpdk 3.0.02
+Install by running this tool.
 
 ### 2. How to use
 
