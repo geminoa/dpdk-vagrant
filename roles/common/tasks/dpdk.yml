@@ -13,7 +13,7 @@
        dest={{ dpdk_dir }}
 
 - name: install dpdk
-  command: make install T=x86_64-native-linuxapp-gcc chdir={{ dpdk_dir }}
+  command: make install T={{ dpdk_target }} chdir={{ dpdk_dir }}
 
 - name: put do_after_reboot.sh
   template: src=templates/do_after_reboot.j2 dest={{ install_dir }}/do_after_reboot.sh mode=775
