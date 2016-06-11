@@ -1,0 +1,22 @@
+---
+- name: install build-essential
+  become: yes
+  apt: pkg=build-essential update_cache=no state=present
+
+- name: install linux-headers
+  become: yes
+  #command: sh -c "apt-get install linux-headers-`uname -r`"
+  apt: pkg=linux-headers-{{ uname_r }} update_cache=no state=present
+
+- name: get dpdk
+  git: repo=http://dpdk.org/git/dpdk
+       dest={{ dpdk_dir }}
+
+- name: install dpdk
+  command: make install T=x86_64-native-linuxapp-gcc chdir={{ dpdk_dir }}
+
+- name: put do_after_reboot.sh
+  template: src=templates/do_after_reboot.j2 dest={{ install_dir }}/do_after_reboot.sh mode=775
+
+- name: put env.sh
+  template: src=templates/env_dpdk.j2 dest={{ install_dir }}/env.sh mode=775

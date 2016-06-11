@@ -1,11 +1,8 @@
-[dpdk1]
+[common]
 192.168.33.11
 
-#[dpdk2]
-#192.168.33.12
-
 [pktgen]
-192.168.33.13
+192.168.33.12
 
 [all:vars]
 ansible_ssh_port=22

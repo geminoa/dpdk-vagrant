@@ -1,3 +1,2 @@
 ---
-- include: setup.yml
-- include: install-pktgen.yml
+- include: pktgen.yml

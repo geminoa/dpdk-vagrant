@@ -1,0 +1,16 @@
+---
+- name: install ruby 
+  become: yes
+  apt: name=ruby state=present
+
+- name: install nmon
+  become: yes
+  apt: name=nmon state=present
+
+- name: install tmux
+  become: yes
+  apt: name=tmux state=present
+
+- name: put .tmux.conf
+  copy: src=templates/tmux.conf dest={{ ansible_env.HOME }}/.tmux.conf mode=664
+

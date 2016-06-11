@@ -10,7 +10,7 @@
   command: make -C src chdir={{ ansible_env.HOME }}/.rbenv
 
 - name: copy bash_profile
-  copy: src=templates/bash_profile dest={{ ansible_env.HOME }}/.bash_profile mode=664
+  copy: src=templates/bash_profile_rbenv dest={{ ansible_env.HOME }}/.bash_profile mode=664
 
 - name: get ruby-build
   git: repo=https://github.com/rbenv/ruby-build.git

@@ -1,0 +1,12 @@
+---
+- name: set hugepages size
+  become: yes
+  command: sh -c "echo {{ nr_hugepages }} > /sys/kernel/mm/hugepages/hugepages-2048kB/nr_hugepages"
+
+- name: mkdir -p /mnt/huge
+  become: yes
+  file: path=/mnt/huge state=directory
+
+- name: mount hugetlbfs
+  become: yes
+  command: mount -t hugetlbfs nodev /mnt/huge

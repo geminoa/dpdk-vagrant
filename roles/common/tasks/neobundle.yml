@@ -6,5 +6,8 @@
 - name: install neobundle
   command: sh {{ ansible_env.HOME }}/install.sh
 
+- name: remove install.sh of neobundle
+  command: rm {{ ansible_env.HOME }}/install.sh
+
 - name: put .vimrc
-  copy: src=templates/vimrc dest={{ ansible_env.HOME }}/.vimrc mode=664
+  copy: src=templates/vimrc_neobundle dest={{ ansible_env.HOME }}/.vimrc mode=664

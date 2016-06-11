@@ -12,20 +12,20 @@ PORT_NUM = 4  # for dpdk pmd.
 
 servers = [
 #  {
-#    "id" => "h2",
+#    "id" => "h3",
 #    "memory" => MEM_SIZE,
 #    "cpu" => CPU_NUM,
 #    "nic" => {
-#               "ipaddr" => "192.168.33.12",
+#               "ipaddr" => "192.168.33.13",
 #               "port_num" => PORT_NUM
 #             }
 #  },
   {
-    "id" => "h3",
+    "id" => "h2",
     "memory" => MEM_SIZE,
     "cpu" => CPU_NUM,
     "nic" => {
-      "ipaddr" => "192.168.33.13",
+      "ipaddr" => "192.168.33.12",
       "port_num" => PORT_NUM
     },
     "ssh_port" => 11122
@@ -80,16 +80,17 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.box = "bento/ubuntu-14.04"
   #config.vm.box = "bento/ubuntu-15.04"
 
-  #config.vm.network :forwarded_port, guest: 22, host: 11234
+  #config.vm.network :forwarded_port, id: "ssh", guest: 22, host: 11234, auto_correct: true
 
   servers.each do |server|
     config.vm.define server["id"].to_sym do |sid|
-      sid.vm.network :forwarded_port, guest: 22, host: server["ssh_port"] 
+      sid.vm.network :forwarded_port, id: "ssh", guest: 22, host: server["ssh_port"], auto_correct: true
       sid.vm.network :private_network, ip: server["nic"]["ipaddr"]
       server["nic"]["port_ipaddrs"].each do |ipaddr|
         sid.vm.network :private_network, ip: ipaddr
       end  
     end
+    #config.vm.network :forwarded_port, id: "ssh", guest: 22, host: server["ssh_port"] auto_correct: true
 
     config.vm.provider "virtualbox" do |vb|
      vb.customize ["modifyvm", :id, "--memory", server["memory"], "--cpus", server["cpu"]]

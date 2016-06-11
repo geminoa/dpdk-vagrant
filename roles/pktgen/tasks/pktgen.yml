@@ -1,0 +1,20 @@
+---
+- name: install libpcap-dev
+  become: yes
+  apt: pkg=libpcap-dev state=present
+
+- name: get pktgen
+  git: repo=http://dpdk.org/git/apps/pktgen-dpdk
+       dest={{ pktgen_dir }}
+
+- name: put oritinal doit script
+  copy: src=templates/doit dest={{ pktgen_dir }} mode=775
+
+- name: put patch for pktgen-dpdk/app/pktgen-pcap.c
+  copy: src=templates/pktgen-pcap.patch dest={{ pktgen_dir }}/app mode=664
+
+- name: patch for pktgen-dpdk/app/pktgen-pcap.c
+  command: sh -c "patch < pktgen-pcap.patch" chdir={{ pktgen_dir }}/app
+
+- name: make pktgen
+  command: make RTE_SDK={{ dpdk_dir }} RTE_TARGET={{ dpdk_target }} chdir={{ pktgen_dir }}
