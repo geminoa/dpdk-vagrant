@@ -13,7 +13,7 @@ sudo modprobe uio_pci_generic
 sudo mkdir -p /mnt/huge
 sudo mount -t hugetlbfs nodev /mnt/huge
 
-sudo sh "echo {{ nr_hugepages }} > /sys/kernel/mm/hugepages/hugepages-2048kB/nr_hugepages"
+sudo sh -c "echo {{ nr_hugepages }} > /sys/kernel/mm/hugepages/hugepages-2048kB/nr_hugepages"
 
 # If on a Numa
 #sudo sh "echo {{ nr_hugepages }} > /sys/devices/system/node/node0/hugepages/hugepages-2048kB/nr_hugepages"
