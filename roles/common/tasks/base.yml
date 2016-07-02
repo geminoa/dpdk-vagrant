@@ -19,5 +19,9 @@
   become: yes
   apt: name=wget state=present
 
+- name: install PyYAML
+  become: yes
+  apt: name=python-yaml state=present
+
 - name: create install_dir
   file: path={{ install_dir }} state=directory
