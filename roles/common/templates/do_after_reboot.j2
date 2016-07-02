@@ -23,7 +23,7 @@ sudo sh -c "echo {{ nr_hugepages }} > /sys/kernel/mm/hugepages/hugepages-2048kB/
 script=${RTE_SDK}/tools/dpdk_nic_bind.py
 opt="--bind=uio_pci_generic"
 
-for eth in eth2 eth3 eth4 eth5
+for eth in enp0s9 enp0s10 enp0s16 enp0s17
 do
   sudo ifconfig ${eth} down
   echo python ${script} ${opt} ${eth} 

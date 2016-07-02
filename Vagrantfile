@@ -7,7 +7,7 @@ VAGRANTFILE_API_VERSION = "2"
 
 # ---------- Edit to change VM params -------------
 CPU_NUM = 4
-MEM_SIZE = 4 * 1024
+MEM_SIZE = 6 * 1024
 PORT_NUM = 4  # for dpdk pmd.
 
 servers = [
@@ -77,8 +77,8 @@ end
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Every Vagrant virtual environment requires a box to build off of.
-  config.vm.box = "bento/ubuntu-14.04"
-  #config.vm.box = "bento/ubuntu-15.04"
+  #config.vm.box = "bento/ubuntu-14.04"
+  config.vm.box = "bento/ubuntu-16.04"
 
   #config.vm.network :forwarded_port, id: "ssh", guest: 22, host: 11234, auto_correct: true
 

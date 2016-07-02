@@ -6,11 +6,12 @@
   remote_user: vagrant
   vars:
     nr_hugepages: 2048
-    uname_r: 4.2.0-35-generic
+    uname_r: 4.4.0-22-generic
     install_dir: "{{ ansible_env.HOME }}/dpdk-home"
     netsniff_dir: "{{ install_dir }}/netsniff-ng"
     dpdk_dir: "{{ install_dir }}/dpdk"
     dpdk_target: x86_64-ivshmem-linuxapp-gcc
+    interfaces: "enp0s9 enp0s10 enp0s16 enp0s17"
   roles:
     - common
 
