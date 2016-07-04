@@ -1,6 +1,6 @@
 ## DPDK and pktgen with Vagrant
 
-This program setup DPDK 16.04 and pktge-dpdk 3.0.02 on virtual machines of Ubuntu 14.04.
+This program setup DPDK 16.04 and pktge-dpdk 3.0.02 on virtual machines of Ubuntu 16.04.
 
 ### 1. Installation
 
