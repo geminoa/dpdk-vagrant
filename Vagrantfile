@@ -4,7 +4,7 @@
 
 # ---------- Edit to change VM params -------------
 CPU_NUM = 4
-MEM_SIZE = 6 * 1024
+MEM_SIZE = 4 * 1024
 PORT_NUM = 4  # for dpdk pmd.
 BOX = "everpeace/mesos"
 
