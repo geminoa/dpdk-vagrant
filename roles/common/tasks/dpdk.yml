@@ -10,6 +10,7 @@
 
 - name: get dpdk
   git: repo=http://dpdk.org/git/dpdk
+       version={{ dpdk_ver }}
        dest={{ dpdk_dir }}
 
 - name: install dpdk

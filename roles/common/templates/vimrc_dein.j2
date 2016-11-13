@@ -1,0 +1,77 @@
+syntax on
+set shiftwidth=2
+set tabstop=2
+set expandtab
+set number
+set showcmd
+set showmatch
+set hlsearch
+set laststatus=2
+set encoding=utf-8
+set fileencoding=utf-8
+set termencoding=utf-8
+set autoindent
+
+set visualbell t_vb=
+set noerrorbells
+
+"colorscheme darkblue
+
+" Cancel auto comment out.
+autocmd FileType * setlocal formatoptions-=ro
+
+filetype on
+filetype indent on
+filetype plugin on
+
+" Show multiple candidates of tags
+nnoremap <C-]> g<C-]>
+
+"dein scripts-------------------------
+if &compatible
+  set nocompatible
+endif
+
+" Required:
+set runtimepath+={{ dein_path }}/repos/github.com/Shougo/dein.vim
+
+" Required:
+call dein#begin('{{ dein_path }}')
+
+" Let dein manage dein
+" Required:
+call dein#add('Shougo/dein.vim')
+
+" Add or remove your plugins here:
+call dein#add('Shougo/neosnippet.vim')
+call dein#add('Shougo/neosnippet-snippets')
+
+" You can specify revision/branch/tag.
+call dein#add('Shougo/vimshell', { 'rev': '3787e5' })
+
+call dein#add('quickrun.vim')
+"call dein#add('thinca/vim-ref')
+"call dein#add('Shougo/unite.vim')
+"call dein#add('Shougo/vimfiler')
+"call dein#add('JavaScript-syntax')
+"call dein#add('pangloss/vim-javascript')
+"call dein#add('nathanaelkane/vim-indent-guides')
+"call dein#add('kien/rainbow_parentheses.vim')
+"call dein#add('tpope/vim-fireplace')
+"call dein#add('tpope/vim-classpath')
+"call dein#add('tpope/vim-rsi')
+"call dein#add('tpope/vim-endwise')
+
+" Required:
+call dein#end()
+
+" Required:
+filetype plugin indent on
+syntax enable
+
+" If you want to install not installed plugins on startup.
+"if dein#check_install()
+"  call dein#install()
+"endif
+
+"End dein Scripts-------------------------

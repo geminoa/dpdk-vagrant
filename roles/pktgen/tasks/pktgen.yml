@@ -6,6 +6,7 @@
 - name: get pktgen
   git: repo=http://dpdk.org/git/apps/pktgen-dpdk
        dest={{ pktgen_dir }}
+       version={{ pktgen_ver }}
 
 - name: put oritinal doit script
   copy: src=templates/doit dest={{ pktgen_dir }} mode=775

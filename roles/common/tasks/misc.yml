@@ -1,4 +1,8 @@
 ---
+#- name: install emacs
+#  become: yes
+#  apt: name=emacs state=present
+
 - name: install ruby 
   become: yes
   apt: name=ruby state=present

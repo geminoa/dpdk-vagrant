@@ -10,8 +10,10 @@
     install_dir: "{{ ansible_env.HOME }}/dpdk-home"
     netsniff_dir: "{{ install_dir }}/netsniff-ng"
     dpdk_dir: "{{ install_dir }}/dpdk"
+    dpdk_ver: v16.07
     dpdk_target: x86_64-ivshmem-linuxapp-gcc
-    interfaces: "enp0s9 enp0s10 enp0s16 enp0s17"
+    dein_home: "{{ ansible_env.HOME }}/dein"
+    interfaces: "eth1 eth2 eth3 eth4"
   roles:
     - common
 
@@ -22,6 +24,7 @@
     install_dir: "{{ ansible_env.HOME }}/dpdk-home"
     dpdk_dir: "{{ install_dir }}/dpdk"
     pktgen_dir: "{{ install_dir }}/pktgen-dpdk"
+    pktgen_ver: pktgen-3.0.16
     dpdk_target: x86_64-ivshmem-linuxapp-gcc
   roles:
     - pktgen

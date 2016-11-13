@@ -1,0 +1,13 @@
+---
+- name: get Shougo/dein
+  get_url: url=https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh
+           dest={{ ansible_env.HOME }}
+
+- name: install Shougo/dein
+  command: sh {{ ansible_env.HOME }}/install.sh dein
+
+- name: remove install.sh of Shougo/dein
+  command: rm {{ ansible_env.HOME }}/install.sh
+
+- name: put .vimrc
+  template: src=templates/vimrc_dein.j2 dest={{ ansible_env.HOME }}/.vimrc mode=664

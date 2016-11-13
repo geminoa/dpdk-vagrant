@@ -1,14 +1,12 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
-# Vagrantfile API/syntax version. Don't touch unless you know what you're doing!
-VAGRANTFILE_API_VERSION = "2"
-
 
 # ---------- Edit to change VM params -------------
 CPU_NUM = 4
 MEM_SIZE = 6 * 1024
 PORT_NUM = 4  # for dpdk pmd.
+BOX = "everpeace/mesos"
 
 servers = [
 #  {
@@ -45,6 +43,10 @@ servers = [
 # -------------------------------------------------
 
 
+# Vagrantfile API/syntax version. Don't touch unless you know what you're doing!
+VAGRANTFILE_API_VERSION = "2"
+
+
 # Assign random IP address to ports.
 reserved_ipaddrs = []  # Used for checking conflict.
 servers.each do |s|
@@ -77,8 +79,7 @@ end
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Every Vagrant virtual environment requires a box to build off of.
-  #config.vm.box = "bento/ubuntu-14.04"
-  config.vm.box = "bento/ubuntu-16.04"
+  config.vm.box = BOX
 
   #config.vm.network :forwarded_port, id: "ssh", guest: 22, host: 11234, auto_correct: true
 
